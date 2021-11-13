@@ -23,13 +23,26 @@ namespace hass_workstation_service.Domain.Commands
         public override async void TurnOn()
         {
             this.State = "ON";
+
+            //this.Process = new Process();
+            //ProcessStartInfo startInfo = new ProcessStartInfo();
+            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            //startInfo.CreateNoWindow = true;
+            //startInfo.FileName = "cmd.exe";
+            //startInfo.Arguments = $"/C {this.Command}";
+            //this.Process.StartInfo = startInfo;
+
+
             this.Process = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.CreateNoWindow = true;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = $"/C {this.Command}";
+            var startInfo = new ProcessStartInfo
+            {
+                WindowStyle = ProcessWindowStyle.Normal,
+                FileName = "cmd.exe",
+                Arguments = $"/C {this.Command}"
+            };
             this.Process.StartInfo = startInfo;
+
+
             try
             {
                 this.Process.Start();
